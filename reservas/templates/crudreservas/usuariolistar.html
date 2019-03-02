@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<a class="navbar-brand" href="#">Listado De Solicitudes</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>       
+		</button>
+	  
+		<div class="collapse navbar-collapse" id="navbarColor01">
+		  <ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+			  <a class="nav-link" href="{% url 'privado' %}">Volver Al Inicio <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Features</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="{% url 'usuario_crear' %}">Hacer Solicitud</a>
+			</li>
+			<li class="nav-item active ">
+			  <a class="nav-link" href="{% url 'cerrar'%}">Cerrar Sesion</a>
+			</li>
+		  </ul>
+		</div>
+		<form class="form-inline my-2 my-lg-0">{% csrf_token %}
+			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+			</form>
+		
+	  </nav>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+            <td>identificacion</td>
+            <td>Tipo De identificacion</td>
+			<td>Nombres</td>
+			<td>Apellidos</td>
+            <td>Fecha de Nacimiento</td>
+            <td>Sexo</td>
+			<td>email</td>
+			<td>Tipo De Solicitante</td>
+			<td>Acciones</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for usuario in object_list %}
+		<tr>
+			<td>{{ usuario.id }}</td>
+			<td>{{ usuario.tipo_identificaicon }}</td>
+			<td>{{ usuario.nombres }}</td>
+			<td>{{ usuario.apellidos }}</td>
+			<td>{{ usuario.fecha_nacimiento }}</td>
+            <td>{{ usuario.sexo }}</td>
+            <td>{{ usuario.Email }}</td>
+            <td>{{ usuario.rol }}</td>
+			<td>
+				<a class="btn btn-primary" href="{%  url 'mostrar' usuario.id %}">Ver</a>
+				<a class="btn btn-primary" href="{% url 'editar' usuario.id %}">Editar</a>
+				<a class="btn btn-danger" href="{%  url 'eliminar' usuario.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de usuarios</h1>
+		{% endif %}
+	</tbody>
+</table>
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a> 
+    	{% endif %}
+    </li>
+</ul> 
+{% endblock%}

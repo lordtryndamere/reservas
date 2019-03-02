@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+
+<p><strong>identificacion: </strong>{{ object.id }} </p>
+<p><strong>Tipo De identificacion: </strong>{{ object.tipo_identificaicon }} </p>
+<p><strong>Nombres: </strong>{{ object.nombres }} </p>
+<p><strong>Apellidos: </strong>{{ object.apellidos }} </p>
+<p><strong>Fecha De Nacimiento: </strong>{{ object.fecha_nacimiento }} </p>
+<p><strong>Sexo: </strong>{{ object.sexo }} </p>
+<p><strong>Correo Electronico: </strong>{{ object.Email }} </p>
+<p><strong>Tipo De Solicitante: </strong>{{ object.rol }} </p>
+
+<a class= "btn btn-success" href="{% url 'listar' %}">Ok</a>
+<a class= "btn btn-primary" href="{% url 'editar' object.id %}">Editar</a>
+<a class="btn btn-danger" href="{% url 'eliminar' object.id %}">Eliminar</a>
+
+{% endblock %}
